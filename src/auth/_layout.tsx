@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
-import Loader from "./_global/_loader";
+import Loader from "../_global/_loader";
 
-function Layout() {
+const AuthLayout = () => {
     return (
         <>
             <Suspense fallback={<Loader />} >
@@ -12,4 +12,4 @@ function Layout() {
     );
 }
 
-export default Layout;
+export default AuthLayout;

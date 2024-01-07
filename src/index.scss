@@ -1,0 +1,67 @@
+@import "./assets/scss/variable";
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.87);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+body {
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    // background-color: $lightGray;
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+    // background-color: $lightGray;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    // background-image: -webkit-gradient(
+    //   linear,
+    //   left bottom,
+    //   left top,
+    //   color-stop(0.44, $headerColor),
+    //   color-stop(0.72, $primaryColor),
+    //   color-stop(0.86, $headerColor)
+    // );
+  }
+}
+
+@import "./assets/scss/_auth/login";
+
+.custom-button {
+  width: 100%;
+  background-color: $customButtonColor;
+  color: $white;
+  font-family: $outfit;
+  font-size: 27px;
+  font-weight: 500;
+  height: auto;
+  border-radius: 5px;
+  border: 1px solid $black;
+  box-shadow: 5px 7px 0px 0px $black;
+  margin-top: 36px;
+
+  svg {
+    margin-left: 1rem;
+  }
+
+  &:hover {
+    color: $white !important;
+    border: 1px solid $black !important;
+  }
+  &:focus {
+    box-shadow: none;
+  }
+}

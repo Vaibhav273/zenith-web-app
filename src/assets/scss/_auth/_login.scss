@@ -1,0 +1,107 @@
+.login-container {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  @media (min-width: 1400px) {
+    max-width: 1600px;
+  }
+}
+
+.login-box {
+  background-color: $primary;
+  padding: 2rem 6rem;
+  border-radius: 2rem;
+  display: flex;
+  align-items: center;
+
+  .form-section {
+    padding: 2rem 9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  h3 {
+    font-family: $outfit;
+    font-size: 2.5rem;
+    font-weight: 500;
+    color: $loginPageTitle;
+  }
+
+  p {
+    font-family: $outfit;
+    color: $loginPageSubtitle;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 2.5rem;
+  }
+
+  .forgot-text {
+    font-family: $outfit;
+    font-size: 16px;
+    font-weight: 500;
+    color: #4e4e4e;
+    text-decoration: none;
+    float: right;
+    margin-bottom: 1rem;
+  }
+
+  .ant-form-item-label {
+    margin-bottom: 8px;
+    padding: 0;
+    label {
+      font-family: $outfit;
+      color: $loginPageTitle;
+      font-size: 21px;
+      font-weight: 400;
+    }
+  }
+
+  .ant-form-item-control-input {
+    .ant-input {
+      height: 56px;
+      font-family: $outfit;
+      font-size: 18px !important;
+      padding-left: 1.5rem !important;
+      color: #8897ad;
+    }
+    .ant-input-affix-wrapper {
+      overflow: hidden;
+      padding-left: 0;
+
+      .anticon {
+        font-size: 1.5rem;
+      }
+
+      &:before {
+        display: none;
+      }
+    }
+  }
+
+  .ant-divider {
+    margin-bottom: 1rem;
+    margin-bottom: 1rem;
+
+    .ant-divider-inner-text {
+      font-size: 16px;
+      font-family: $outfit;
+      font-weight: 400;
+    }
+
+    &::before,
+    &::after {
+      border-block-start: 1px solid #cfdfe2;
+    }
+  }
+  .account-text {
+    font-family: $outfit;
+    font-weight: 400;
+    font-size: 18px;
+    margin-bottom: 0;
+    text-align: center;
+  }
+  .admin-text-color {
+    color: #ff5d17;
+  }
+}

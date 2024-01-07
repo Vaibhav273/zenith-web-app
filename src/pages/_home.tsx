@@ -1,4 +1,4 @@
-function Home() {
+function HomeScreen() {
     return (
         <>
             <p>Home Page</p>
@@ -6,4 +6,4 @@ function Home() {
     );
 }
 
-export default Home;
+export default HomeScreen;
