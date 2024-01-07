@@ -22,7 +22,7 @@ const LoginScreen = () => {
         try {
             setLoadingSubmit(true);
             const payload = {
-                emailId: formData.emailId,
+                emailId: formData.mobileNo,
                 password: formData.password,
             }
             console.log(payload);
@@ -101,7 +101,7 @@ const LoginScreen = () => {
 
                                     <Link to={""} className="forgot-text">Forgot Password?</Link>
 
-                                    <Button className="custom-button">Sign in <FaArrowRight /></Button>
+                                    <Button className="custom-button" htmlType="submit">Sign in <FaArrowRight /></Button>
 
                                     <Divider>Or</Divider>
                                     <p className="account-text">Don't you have an account?</p>

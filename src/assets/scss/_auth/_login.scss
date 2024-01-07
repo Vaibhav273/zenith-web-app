@@ -28,6 +28,11 @@
     color: $loginPageTitle;
   }
 
+  img{
+    height: 100%;
+    max-height: 710px;
+  }
+
   p {
     font-family: $outfit;
     color: $loginPageSubtitle;
