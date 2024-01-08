@@ -1,6 +1,6 @@
 import { Col, Container, Row } from "react-bootstrap";
 import { AuthenticationService } from "../../_services/_auth-service";
-import { Button, Divider, Form, Input } from "antd";
+import { Button, Divider, Flex, Form, Input } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Swal from "sweetalert2";
@@ -84,7 +84,7 @@ const LoginScreen = () => {
                                             },
                                         ]}
                                     >
-                                        <Input placeholder="Enter Mobile No." className="rounded-pill" />
+                                        <Input placeholder="Enter Mobile No." />
                                     </Form.Item>
                                     <Form.Item
                                         name="password"
@@ -96,19 +96,21 @@ const LoginScreen = () => {
                                             },
                                         ]}
                                     >
-                                        <Input.Password placeholder="Enter Password" className="rounded-pill" />
+                                        <Input.Password placeholder="Enter Password" />
                                     </Form.Item>
 
                                     <Link to={""} className="forgot-text">Forgot Password?</Link>
-
-                                    <Button className="custom-button" htmlType="submit">Sign in <FaArrowRight /></Button>
+                                    
+                                    <Flex vertical gap="small" style={{ width: '100%' }}>
+                                        <Button className="custom-button" htmlType="submit">Sign in <FaArrowRight /></Button>
+                                    </Flex>
 
                                     <Divider>Or</Divider>
                                     <p className="account-text">Don't you have an account?</p>
                                     <p className="account-text admin-text-color">Contact your admin to create your account</p>
                                 </Form>
                             </Col>
-                            <Col xl={6}>
+                            <Col xl={6} className="text-center">
                                 <img src={loginImage} alt="Login Icon" className="img-fluid" />
                             </Col>
                         </Row>

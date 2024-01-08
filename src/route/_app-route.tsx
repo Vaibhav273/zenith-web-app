@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         element: <Layout />,
         errorElement: <Error />,
         children: [
-            { index: true, element: <Login /> },
+            { index: true, element: <VisitorScreen /> },
         ]
     },
     //#region Auth Pages **********************************************************

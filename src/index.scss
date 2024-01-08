@@ -11,6 +11,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 @import "../node_modules/bootstrap/scss/bootstrap.scss";
 
 body {
@@ -39,9 +40,9 @@ body {
 }
 
 @import "./assets/scss/_auth/login";
+@import "./assets/scss/_auth/visitor";
 
 .custom-button {
-  width: 100%;
   background-color: $customButtonColor;
   color: $white;
   font-family: $outfit;
@@ -51,7 +52,7 @@ body {
   border-radius: 5px;
   border: 1px solid $black;
   box-shadow: 5px 7px 0px 0px $black;
-  margin-top: 36px;
+  margin-top: 1.5rem;
 
   svg {
     margin-left: 1rem;
@@ -61,6 +62,7 @@ body {
     color: $white !important;
     border: 1px solid $black !important;
   }
+
   &:focus {
     box-shadow: none;
   }
