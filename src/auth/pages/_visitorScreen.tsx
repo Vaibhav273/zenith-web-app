@@ -1,19 +1,19 @@
 import { Button, Form, Input } from "antd";
 import { Col, Row } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import loginImage from "../../assets/images/login-bg.png";
 import androidImage from "../../assets/images/google-play.png";
 import iosImage from "../../assets/images/app-store.png";
 import tagImage from "../../assets/images/tag-image.png";
 import { FaArrowRight } from "react-icons/fa6";
 import { PiStarFourFill } from "react-icons/pi";
-import { useState } from "react";
+// import { useState } from "react";
 
 
 const VisitorScreen = () => {
     const [form] = Form.useForm();
-    const navigate = useNavigate();
-    const [otpSent, setOTPSent] = useState(false);
+    // const navigate = useNavigate();
+    // const [otpSent, setOTPSent] = useState(false);
 
     const visitorSubmit = async () => {
 
