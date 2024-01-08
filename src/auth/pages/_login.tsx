@@ -60,7 +60,7 @@ const LoginScreen = () => {
 
     return (
         <>
-            <Container className="login-container">
+            <Col xl={{ span: 10, offset: 1 }}  className="login-container">
                 <Row>
                     <Col xl={12} className="login-box">
                         <Row>
@@ -116,7 +116,7 @@ const LoginScreen = () => {
                         </Row>
                     </Col>
                 </Row>
-            </Container>
+            </Col>
         </>
     )
 }

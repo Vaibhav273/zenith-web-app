@@ -1,6 +1,7 @@
 .login-container {
   display: flex;
   align-items: center;
+  justify-content: center;
   height: 100%;
   min-height: 100vh;
 }
@@ -68,6 +69,7 @@
       font-size: 18px !important;
       padding-left: 1.5rem !important;
       color: #8897ad;
+      border-color: $black;
       border-radius: 5px;
     }
 

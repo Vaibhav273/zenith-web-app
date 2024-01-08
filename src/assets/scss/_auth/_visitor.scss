@@ -1,0 +1,117 @@
+.visitor-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 100vh;
+
+  .visitor-box {
+    background-color: $primary;
+    padding: 3rem 5rem !important;
+    border-radius: 2rem;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+
+    &:before {
+      content: "";
+      background-image: url("assets/images/visitor-bg.png");
+      background-size: contain;
+      width: 100%;
+      position: absolute;
+      height: 100%;
+      left: 0;
+      opacity: 0.3;
+      z-index: 1;
+    }
+
+    .small-divider {
+      width: 49px;
+      height: 2px;
+      background-color: rgba($black, 0.2);
+      margin: 0.6rem 0;
+    }
+
+    .custom-button {
+      width: 250px;
+    }
+    h4 {
+      font-family: $outfit;
+      font-size: 2rem;
+      font-weight: 600;
+      margin: 2rem 0;
+    }
+    .visitor-box-Mobile {
+      background-color: $customButtonColor;
+      border-radius: 2rem;
+      padding: 1.9rem 2.2rem;
+
+      a {
+        margin-right: 0.5rem;
+        img {
+          margin-top: 0.9rem;
+        }
+      }
+
+      h4 {
+        font-family: $outfit;
+        font-size: 2rem;
+        font-weight: 600;
+        color: $white;
+        text-transform: uppercase;
+        margin: 0;
+      }
+      p {
+        font-family: $outfit;
+        font-size: 1.1rem;
+        margin-bottom: 0;
+      }
+    }
+
+    .form-section {
+      z-index: 2;
+
+      .ant-form-item-label {
+        margin-bottom: 5px;
+        padding: 0;
+
+        label {
+          font-family: $outfit;
+          color: $loginPageTitle;
+          font-size: 1rem;
+          font-weight: 400;
+        }
+      }
+
+      .ant-form-item-control-input {
+        .ant-input {
+          height: 42px;
+          font-family: $outfit;
+          font-size: 18px !important;
+          padding-left: 1.5rem !important;
+          color: #8897ad;
+          border-radius: 5px;
+          border-color: $black;
+        }
+      }
+    }
+  }
+  .box-image {
+    z-index: 2;
+    img {
+      height: 100%;
+      max-height: 600px;
+    }
+  }
+}
+
+.otp-form-section {
+  margin-top: 1rem;
+  p {
+    font-family: $outfit;
+    font-size: 1.1rem;
+    margin-bottom: 0;
+  }
+}
