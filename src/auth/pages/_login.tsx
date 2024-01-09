@@ -60,7 +60,7 @@ const LoginScreen = () => {
 
     return (
         <>
-            <Col xl={{ span: 10, offset: 1 }}  className="login-container">
+            <Col xl={{ span: 10, offset: 1 }} lg={12} md={12} className="login-container">
                 <Row>
                     <Col xl={12} className="login-box">
                         <Row>
@@ -100,7 +100,7 @@ const LoginScreen = () => {
                                     </Form.Item>
 
                                     <Link to={""} className="forgot-text">Forgot Password?</Link>
-                                    
+
                                     <Flex vertical gap="small" style={{ width: '100%' }}>
                                         <Button className="custom-button" htmlType="submit">Sign in <FaArrowRight /></Button>
                                     </Flex>

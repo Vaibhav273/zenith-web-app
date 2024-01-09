@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, InputNumber, Select } from "antd";
 import { Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import loginImage from "../../assets/images/login-bg.png";
@@ -9,6 +9,7 @@ import { FaArrowRight } from "react-icons/fa6";
 import { PiStarFourFill } from "react-icons/pi";
 // import { useState } from "react";
 
+const { Option } = Select;
 
 const VisitorScreen = () => {
     const [form] = Form.useForm();
@@ -23,9 +24,16 @@ const VisitorScreen = () => {
 
     }
 
+    const selectBefore = (
+        <Select defaultValue="+91" style={{ width: 60 }}>
+            <Option value="+91">+91</Option>
+            <Option value="+1">+1</Option>
+        </Select>
+    );
+
     return (
         <>
-            <Col xl={{ span: 10, offset: 1 }} className="visitor-container">
+            <Col xl={{ span: 10, offset: 1 }} lg={12} md={12} className="visitor-container">
                 <Row>
                     <Col xl={12} className="visitor-box">
                         <Row>
@@ -85,7 +93,8 @@ const VisitorScreen = () => {
                                                     },
                                                 ]}
                                             >
-                                                <Input placeholder="7879....." />
+                                                {/* <InputNumber addonAfter={selectAfter} defaultValue={100} /> */}
+                                                <InputNumber addonBefore={selectBefore} placeholder="7879....." style={{ width: "100%" }} />
                                             </Form.Item>
                                         </Col>
                                         <Col xl={6}>
@@ -121,7 +130,7 @@ const VisitorScreen = () => {
                                         <Button className="custom-button" htmlType="submit">Next <FaArrowRight /></Button>
                                     </Col>
                                 </Form>
-                                <Form
+                                {/* <Form
                                     layout="vertical"
                                     form={form}
                                     name="otpForm"
@@ -136,7 +145,7 @@ const VisitorScreen = () => {
                                     <Col className="text-center">
                                         <Button className="custom-button" htmlType="submit">Submit</Button>
                                     </Col>
-                                </Form>
+                                </Form> */}
                             </Col>
                             <Col xl={6} className="text-center box-image">
                                 <img src={loginImage} alt="Login Icon" className="img-fluid" />
