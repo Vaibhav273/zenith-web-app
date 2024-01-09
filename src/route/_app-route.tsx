@@ -7,10 +7,13 @@ import AuthenticationService from "../_services/_auth-service";
 import ErrorScreen from "../_global/_error";
 import UserLayout from "../_user/_layout";
 import VisitorScreen from "../auth/pages/_visitorScreen";
+import DashBoardScreen from "../_user/_dashboard";
 
 
-const Home = React.lazy(() => import('../pages/_home'));
+// const Home = React.lazy(() => import('../pages/_home'));
 const Login = React.lazy(() => import('../auth/pages/_login'));
+
+const DashboardLayout = React.lazy(() => import("../_user/_sidebar-layout"));
 
 const redirectIfUser = () => {
     const authService = new AuthenticationService();
@@ -47,7 +50,7 @@ const router = createBrowserRouter([
         element: <Layout />,
         errorElement: <Error />,
         children: [
-            { index: true, element: <VisitorScreen /> },
+            { index: true, element: <Login /> },
         ]
     },
     //#region Auth Pages **********************************************************
@@ -63,7 +66,13 @@ const router = createBrowserRouter([
     {
         element: <UserLayout />, errorElement: <ErrorScreen />, id: 'Dashboard', loader: redirectIfNotLoggedIn,
         children: [
-
+            {
+                path: 'user', element: <DashboardLayout />,
+                children: [
+                    { path: 'dashboard', element: <DashBoardScreen />, index: true },
+                    // { path: 'boiler-list/new-application', element: <BoilerList applicationType="new-application" /> },
+                ]
+            }
         ]
     }
     //#region User Pages **************************************************************

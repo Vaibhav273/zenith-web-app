@@ -1,0 +1,121 @@
+.ant-layout-has-sider {
+  padding-left: 0.8rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  .ant-layout-sider {
+    border-radius: 1.8rem;
+    width: auto !important;
+    background-color: $primary;
+    overflow: hidden;
+
+    max-width: 300px !important;
+    min-width: 300px !important;
+    flex: 0 0 300px !important;
+    padding: 1rem 1.2rem;
+  }
+
+  .ant-layout-sider-collapsed {
+    max-width: 100px !important;
+    min-width: 100px !important;
+    flex: 0 0 100px !important;
+
+    .ant-image {
+      width: 0;
+    }
+  }
+}
+
+.ant-layout-sider-trigger {
+  width: 50px !important;
+  height: 50px !important;
+  border-radius: 0.7rem;
+  background-color: $white !important;
+  position: absolute !important;
+
+  top: 36px !important;
+  right: 30px !important;
+}
+
+.img-box {
+  background-color: rgba(255, 255, 255, 0.6);
+  padding: 10px;
+  margin-top: 0.7rem;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  img {
+    width: 170px !important;
+  }
+
+  .icon-trigger {
+    background-color: $white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+
+    svg {
+      font-size: 1.9rem;
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.ant-layout-sider-children {
+  .ant-menu {
+    background-color: transparent !important;
+    padding: 0;
+    margin-top: 1.5rem;
+
+    .ant-menu-item {
+      border-radius: 6px !important;
+      color: $black;
+      font-size: 1rem;
+      height: 50px;
+
+      svg {
+        font-size: 1rem;
+      }
+
+      &.ant-menu-item-selected {
+        color: $white;
+        background-color: $dashboardMenuActive;
+        overflow: visible;
+
+        &:before {
+          content: "";
+          height: 50px;
+          width: 9px;
+          position: absolute;
+          left: -27px;
+          background-color: $dashboardMenuActive;
+          border-radius: 10px;
+        }
+      }
+
+      &:hover {
+        color: $white !important;
+        background-color: $dashboardMenuActive !important;
+        overflow: visible;
+
+        &:before {
+          content: "";
+          height: 50px;
+          width: 9px;
+          position: absolute;
+          left: -27px;
+          background-color: $dashboardMenuActive;
+          border-radius: 10px;
+        }
+      }
+    }
+  }
+}

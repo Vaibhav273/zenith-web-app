@@ -33,14 +33,14 @@ export class AuthenticationService {
     }
 
     login = async (payload: any) => {
-        return await axiosInstance.post('/auth/login', payload);
+        return await axiosInstance.post('/auth/login-organization', payload);
     }
     refreshAuthToken = async (payload: any) => {
-        return await axiosInstance.post('/auth/refreshwebtoken', payload);
+        return await axiosInstance.post('/auth/refresh_token', payload);
     }
     logout = () => {
         sessionStorage.clear();
-        window.location.href = '/login-type';
+        window.location.href = '/login';
     }
 }
 

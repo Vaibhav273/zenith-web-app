@@ -1,15 +1,15 @@
-import React, { Suspense, useState } from 'react';
-import { AiOutlineUser, AiOutlineLogout } from "react-icons/ai";
-import { Breadcrumb, Layout, Menu, theme, Dropdown, Space, Divider, Button, Image, Avatar } from 'antd';
+import { Suspense, useEffect, useState } from 'react';
+import { Breadcrumb, Layout, Menu, theme, Image, } from 'antd';
 import type { MenuProps } from 'antd';
 import { NavLink, Outlet, useLocation } from "react-router-dom";
-import boilerLogo from "../../assets/images/logo-dashboard.png";
+import zenithLogo from "../assets/images/logo-dashboard.png";
 import { LuUnlock } from 'react-icons/lu';
 import AuthenticationService from '../_services/_auth-service';
 import { getNavItems } from './route/_nav';
 import Loader from '../_global/_loader';
+import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 const authService = new AuthenticationService();
 const logoutBtnClicked = () => {
     authService.logout();
@@ -48,7 +48,7 @@ const getSelectedMenuKeys = (): string[] | undefined => {
         return undefined;
     }
 }
-const CustomLayout = () => {
+const DashboardLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
     const { token } = theme.useToken();
 
@@ -72,28 +72,11 @@ const CustomLayout = () => {
     //     getCurrentUrlAndKey();
     // }, []);
     const userMenuItems: MenuProps['items'] = [
-        {
-            key: '1',
-            label: (
-                <a href="/">
-                    My Profile
-                </a>
-            ),
-        },
         getChangePasswordUrl() ? {
             key: '2',
             label: <NavLink to={getChangePasswordUrl()} className={'text-decoration-none'}>Change Password</NavLink>,
             icon: <LuUnlock />,
         } : null,
-        {
-            key: '3',
-            label: (
-                <a href="/">
-                    2nd menu item (disabled)
-                </a>
-            ),
-            disabled: true,
-        },
     ];
 
     const contentStyle = {
@@ -105,39 +88,41 @@ const CustomLayout = () => {
         boxShadow: 'none',
     };
 
+    const [collapsedState, setCollapsedState] = useState({
+        collapsed: false,
+    });
+
+    const toggle = () => {
+        setCollapsedState({
+            collapsed: !collapsedState.collapsed,
+        });
+    };
+
     return (
         <Layout style={{ minHeight: '100vh' }}>
-            <Header  >
-                <Image
-                    width={200}
-                    preview={false}
-                    src={boilerLogo}
-                />
-                <Dropdown className='ms-auto'
-                    menu={{ items: userMenuItems }}
-                    dropdownRender={(menu) => (
-                        <div style={contentStyle}>
-                            {React.cloneElement(menu as React.ReactElement, { style: menuStyle })}
-                            <Divider style={{ margin: 0 }} />
-                            <Space direction="vertical" style={{ padding: 8, width: '100%' }}>
-                                <Button block type="primary" onClick={logoutBtnClicked} icon={<AiOutlineLogout />}>Logout</Button>
-                            </Space>
-                        </div>
-                    )}
-                >
-                    <a onClick={(e) => e.preventDefault()}>
-                        <Avatar icon={<AiOutlineUser />} />  {authService.getUserData?.userName}
-                    </a>
-                </Dropdown>
-            </Header>
             <Layout>
-                <Sider breakpoint="lg" collapsible collapsed={collapsed}
-                    onCollapse={(value) => setCollapsed(value)} width={200}
+                <Sider
+                    trigger={null}
+                    collapsed={collapsedState.collapsed}
+                    collapsible
+                    breakpoint="lg"
                 >
+                    <div className='img-box'>
+                        <Image
+                            preview={false}
+                            src={zenithLogo}
+                            className='img-fluid'
+                        />
+                        <div className='icon-trigger'
+                            onClick={toggle}
+                        >
+                            {collapsedState.collapsed ? <GoSidebarCollapse /> : <GoSidebarExpand />}
+                        </div>
+                    </div>
                     {/* <div className="demo-logo-vertical" /> */}
-                    <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={getNavItems()} selectedKeys={getSelectedMenuKeys()} />
+                    <Menu theme="dark" defaultSelectedKeys={['0']} mode="inline" items={getNavItems()} selectedKeys={getSelectedMenuKeys()} />
                 </Sider>
-                <Layout className="site-layout" style={{ marginLeft: collapsed ? 80 : 200, transition: "0.2s ease" }}>
+                <Layout className="site-layout" style={{ transition: "0.2s ease" }}>
                     <Content style={{ margin: '0 8px' }}>
                         <Breadcrumb style={{ margin: '4px 0' }}>
                             {/* <Breadcrumb.Item>Department</Breadcrumb.Item>
@@ -157,4 +142,4 @@ const CustomLayout = () => {
     );
 };
 
-export default CustomLayout;
+export default DashboardLayout;

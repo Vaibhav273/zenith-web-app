@@ -22,31 +22,18 @@ const LoginScreen = () => {
         try {
             setLoadingSubmit(true);
             const payload = {
-                emailId: formData.mobileNo,
+                username: formData.emailId,
                 password: formData.password,
             }
             console.log(payload);
 
             const res = await authService.login(payload);
-            if (!res.data.isLoginSuccessful) {
-                Swal.fire({
-                    html: res.data.message,
-                    icon: 'warning',
-                });
-                return;
-            }
-            sessionStorage.setItem('authToken', res.data.authToken);
-            sessionStorage.setItem('refreshToken', res.data.refreshToken);
-            sessionStorage.setItem('loginTimeStamp', new Date().getTime().toString());
-            const userData = authService.getUserData;
-            console.log(userData);
-            if (userData?.roleId == 1) { // Admin Roles : [1,]
-                navigate('/admin/dashboard');
-            }
-            else if (userData?.roleId == 5) { // Department Roles : [5]
-                navigate('/chief/dashboard');
-            } else if (userData?.roleId == 6) { // Department Roles : [6]
-                navigate('/department/dashboard');
+            if (res.data.status) {
+                sessionStorage.setItem('authToken', res.data.access_token);
+                sessionStorage.setItem('refreshToken', res.data.refresh_token);
+                sessionStorage.setItem('loginTimeStamp', new Date().getTime().toString());
+                // Admin Roles : [1,]
+                navigate('/user/dashboard');
             }
         }
         catch (error) {
@@ -75,16 +62,16 @@ const LoginScreen = () => {
                                     scrollToFirstError
                                 >
                                     <Form.Item
-                                        name="mobileNo"
-                                        label="Registered Mobile No."
+                                        name="emailId"
+                                        label="Email Id"
                                         rules={[
                                             {
                                                 required: true,
-                                                message: 'Please enter your Registered Mobile No.',
+                                                message: 'Please enter your Email Id',
                                             },
                                         ]}
                                     >
-                                        <Input placeholder="Enter Mobile No." />
+                                        <Input type="email" placeholder="Enter Email Id" />
                                     </Form.Item>
                                     <Form.Item
                                         name="password"
