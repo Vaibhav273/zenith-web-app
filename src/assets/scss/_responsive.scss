@@ -1,22 +1,65 @@
+.mobile-menu {
+  display: none;
+}
 //iPads, Tablets
 @media (min-width: 1201px) and (max-width: 1200px) {
 }
 
 //iPads, Tablets
 @media (min-width: 1025px) and (max-width: 1200px) {
+  .login-box {
+    .form-section {
+      padding: 2rem;
+    }
+  }
 }
 
 //iPads, Tablets
 @media (min-width: 769px) and (max-width: 1024px) {
+  .login-box {
+    .form-section {
+      padding: 2rem;
+    }
+  }
 }
 
 //iPads, Tablets
 @media (min-width: 481px) and (max-width: 768px) {
+  .login-box {
+    border-radius: 0;
+    .form-section {
+      padding: 2rem;
+    }
+  }
 }
 
 //Mobile Devices
 @media (min-width: 321px) and (max-width: 480px) {
+  .mobile-menu {
+    display: block;
+  }
+  .desktop-menu {
+    display: none;
+  }
+  .login-box {
+    border-radius: 0;
+    .form-section {
+      padding: 10px;
+    }
+  }
 }
 
 @media screen and (max-width: 320px) {
+  .mobile-menu {
+    display: block;
+  }
+  .desktop-menu {
+    display: none;
+  }
+  .login-box {
+    border-radius: 0;
+    .form-section {
+      padding: 5px;
+    }
+  }
 }

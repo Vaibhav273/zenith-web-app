@@ -78,7 +78,6 @@ input::-webkit-inner-spin-button {
 
 .ant-table-container {
   .ant-table-thead {
-
     th {
       border-radius: 0 !important;
       background-color: $primary !important;
@@ -131,3 +130,5 @@ input::-webkit-inner-spin-button {
 
   // box-shadow: 5px 5px 10px 0px #ddd;
 }
+
+@import "./assets/scss/responsive";

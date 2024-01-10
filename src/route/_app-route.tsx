@@ -14,7 +14,7 @@ import InventoryList from "../_user/inventory/_inventory-list";
 import InventoryEntry from "../_user/inventory/_inventory-entry";
 
 
-// const Home = React.lazy(() => import('../pages/_home'));
+
 const Login = React.lazy(() => import('../auth/pages/_login'));
 
 const DashboardLayout = React.lazy(() => import("../_user/_sidebar-layout"));

@@ -1,4 +1,4 @@
-import { Button, Tag } from "antd";
+import { Button, Tag, Tooltip } from "antd";
 import { FaPlus } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import InventoryService from "../../_services/_inventory-service";
@@ -56,7 +56,9 @@ const InventoryList = () => {
             render: (record) => {
                 return (
                     <>
-                        <Button type="primary" icon={<FiEdit />} onClick={() => navigate("/user/update-inventory" + record.id)} />
+                        <Tooltip title="Edit">
+                            <Button type="primary" icon={<FiEdit />} onClick={() => navigate("/user/update-inventory" + record.id)} />
+                        </Tooltip>
                     </>
                 )
             }

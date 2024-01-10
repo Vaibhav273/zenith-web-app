@@ -46,11 +46,11 @@ const LoginScreen = () => {
 
     return (
         <>
-            <Col xl={{ span: 10, offset: 1 }} lg={12} md={12} className="login-container">
+            <Col xl={{ span: 10, offset: 1 }} lg={12} md={12} sm={12} xs={12} className="login-container">
                 <Row>
-                    <Col xl={12} className="login-box">
+                    <Col xl={12} lg={12} md={12} sm={12} xs={12} className="login-box">
                         <Row>
-                            <Col xl={6} className="form-section">
+                            <Col xl={6} lg={6} className="form-section">
                                 <h3>Welcome Back</h3>
                                 <p>Today is a new day. It's your day. You shape it. Sign in and get started with your hustle.</p>
                                 <Form
@@ -96,7 +96,7 @@ const LoginScreen = () => {
                                     <p className="account-text admin-text-color">Contact your admin to create your account</p>
                                 </Form>
                             </Col>
-                            <Col xl={6} className="text-center">
+                            <Col xl={6} lg={6} className="text-center">
                                 <img src={loginImage} alt="Login Icon" className="img-fluid" />
                             </Col>
                         </Row>

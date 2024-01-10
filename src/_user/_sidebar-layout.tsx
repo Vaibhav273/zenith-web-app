@@ -1,13 +1,16 @@
-import { Suspense, useEffect, useState } from 'react';
-import { Breadcrumb, Layout, Menu, theme, Image, } from 'antd';
+import { Suspense, useState } from 'react';
+import { Breadcrumb, Layout, Menu, theme, Image, Button, Tooltip } from 'antd';
 import type { MenuProps } from 'antd';
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import zenithLogo from "../assets/images/logo-dashboard.png";
 import { LuUnlock } from 'react-icons/lu';
 import AuthenticationService from '../_services/_auth-service';
 import { getNavItems } from './route/_nav';
 import Loader from '../_global/_loader';
 import { GoSidebarCollapse, GoSidebarExpand } from "react-icons/go";
+import { Container, Nav, Navbar } from 'react-bootstrap';
+import { TbLogout2 } from "react-icons/tb";
+
 
 const { Content, Footer, Sider } = Layout;
 const authService = new AuthenticationService();
@@ -48,9 +51,11 @@ const getSelectedMenuKeys = (): string[] | undefined => {
         return undefined;
     }
 }
+
 const DashboardLayout = () => {
     const [collapsed, setCollapsed] = useState(false);
     const { token } = theme.useToken();
+    const mobileMenuItems = getNavItems();
 
     const getChangePasswordUrl = () => {
         switch (authService.userData?.roleId) {
@@ -68,9 +73,7 @@ const DashboardLayout = () => {
         }
         return "";
     }
-    // useEffect(() => {
-    //     getCurrentUrlAndKey();
-    // }, []);
+
     const userMenuItems: MenuProps['items'] = [
         getChangePasswordUrl() ? {
             key: '2',
@@ -98,29 +101,66 @@ const DashboardLayout = () => {
         });
     };
 
+
     return (
         <Layout style={{ minHeight: '100vh' }}>
+            <Navbar expand="lg" className="bg-body-tertiary">
+                <Container>
+                    <Navbar.Brand href="#">
+                        <Image
+                            width={170}
+                            preview={false}
+                            src={zenithLogo}
+                            className='img-fluid'
+                        />
+                    </Navbar.Brand>
+                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                    <Navbar.Collapse id="basic-navbar-nav">
+                        <Nav className="ms-auto">
+                            {mobileMenuItems.map((elm: any, id: number) => {
+                                return (
+                                    <Link key={id} className='nav-link' to={elm.label.props.to}>{elm.label.props.children}</Link>
+                                )
+                            })}
+                            {/* <Nav.Link href="#home">Home</Nav.Link>
+                            <Nav.Link href="#link">Link</Nav.Link> */}
+                        </Nav>
+                    </Navbar.Collapse>
+                </Container>
+            </Navbar>
             <Layout>
                 <Sider
+                    className='desktop-menu'
                     trigger={null}
                     collapsed={collapsedState.collapsed}
                     collapsible
                     breakpoint="lg"
                 >
-                    <div className='img-box'>
-                        <Image
-                            preview={false}
-                            src={zenithLogo}
-                            className='img-fluid'
-                        />
-                        <div className='icon-trigger'
-                            onClick={toggle}
-                        >
-                            {collapsedState.collapsed ? <GoSidebarCollapse /> : <GoSidebarExpand />}
+                    <div className='menu-part'>
+                        <div className='img-box'>
+                            <Image
+                                preview={false}
+                                src={zenithLogo}
+                                className='img-fluid'
+                            />
+                            <div className='icon-trigger'
+                                onClick={toggle}
+                            >
+                                {collapsedState.collapsed ? <GoSidebarCollapse /> : <GoSidebarExpand />}
+                            </div>
                         </div>
+                        {/* <div className="demo-logo-vertical" /> */}
+                        <Menu theme="dark" defaultSelectedKeys={['0']} mode="inline" items={getNavItems()} selectedKeys={getSelectedMenuKeys()} />
                     </div>
-                    {/* <div className="demo-logo-vertical" /> */}
-                    <Menu theme="dark" defaultSelectedKeys={['0']} mode="inline" items={getNavItems()} selectedKeys={getSelectedMenuKeys()} />
+                    <div style={{
+                        display: "flex",
+                        flexDirection: "row",
+                        justifyContent: "center"
+                    }}>
+                        <Tooltip title="Logout">
+                            <Button onClick={logoutBtnClicked} className="btn-logout" icon={<TbLogout2 />}></Button>
+                        </Tooltip>
+                    </div>
                 </Sider>
                 <Layout className="site-layout" style={{ transition: "0.2s ease" }}>
                     <Content style={{ margin: '0 8px' }}>
