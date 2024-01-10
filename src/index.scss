@@ -124,5 +124,10 @@ input::-webkit-inner-spin-button {
   font-family: $outfit;
   font-weight: 400;
   letter-spacing: 0.5px;
+
+  span {
+    font-weight: 600;
+  }
+
   // box-shadow: 5px 5px 10px 0px #ddd;
 }

@@ -135,7 +135,7 @@ const DashboardLayout = () => {
                         </div>
 
                     </Content>
-                    <Footer className='text-center footer-user'>&copy; Designed, Developed & Hosted by OMAYA Group. Content Provided by Zenith Coworking Space, Raipur, Chhattisgarh.</Footer>
+                    <Footer className='text-center footer-user'>&copy; Designed, Developed & Hosted by <span>OMAYA Group</span>. Content Provided by <span>Zenith Coworking Space, Raipur, Chhattisgarh</span>.</Footer>
                 </Layout>
             </Layout>
         </Layout >
