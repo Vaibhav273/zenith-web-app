@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, Tag } from "antd";
 import { FaPlus } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import InventoryService from "../../_services/_inventory-service";
@@ -31,19 +31,32 @@ const InventoryList = () => {
             dataIndex: 'name',
         },
         {
+            title: 'Category Name',
+            dataIndex: 'categoryName',
+        },
+        {
             title: 'Description',
             dataIndex: 'description',
         },
         {
-            title: 'Active',
+            title: 'Status',
             dataIndex: 'active',
+            render: (record) => {
+                return (
+                    <>
+                        {record.active == 1 ? <Tag color="success">Yes</Tag> : <Tag color="error">No</Tag>}
+                    </>
+                )
+            },
+            align: "center"
         },
         {
             title: 'Action',
-            render: (value, record, index) => {
+            align: "center",
+            render: (record) => {
                 return (
                     <>
-                        <Button type="primary" icon={<FiEdit />} />
+                        <Button type="primary" icon={<FiEdit />} onClick={() => navigate("/user/update-inventory" + record.id)} />
                     </>
                 )
             }

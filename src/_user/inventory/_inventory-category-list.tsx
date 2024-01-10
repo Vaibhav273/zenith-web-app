@@ -35,7 +35,7 @@ const InventoryCategoryList = () => {
             dataIndex: 'description',
         },
         {
-            title: 'Active',
+            title: 'Status',
             dataIndex: 'active',
             render: (value, record, index) => {
                 return (
@@ -52,7 +52,7 @@ const InventoryCategoryList = () => {
                 return (
                     <>
                         <Tooltip title="Edit">
-                            <Button icon={<FiEdit />} />
+                            <Button icon={<FiEdit />} onClick={() => navigate("/user/update-inventory-category" + record.id)} />
                         </Tooltip>
                     </>
                 )
