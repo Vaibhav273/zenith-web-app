@@ -1,4 +1,4 @@
-import { Button, Flex, Form, Input } from "antd";
+import { Button, Form, Input } from "antd";
 import InventoryService from "../../_services/_inventory-service";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -77,7 +77,7 @@ const InventoryCategoryEntry = () => {
                         >
                             <TextArea rows={4} placeholder="Enter Description" />
                         </Form.Item>
-                        <Button htmlType="submit">Submit</Button>
+                        <Button htmlType="submit" disabled={loadingFormSubmit}>Submit</Button>
                     </Form>
                 </Col>
             </div>

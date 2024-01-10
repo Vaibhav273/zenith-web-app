@@ -1,9 +1,8 @@
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import { AuthenticationService } from "../../_services/_auth-service";
 import { Button, Divider, Flex, Form, Input } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Swal from "sweetalert2";
 import { FaArrowRight } from "react-icons/fa6";
 import loginImage from "../../assets/images/login-bg.png";
 
@@ -89,7 +88,7 @@ const LoginScreen = () => {
                                     <Link to={""} className="forgot-text">Forgot Password?</Link>
 
                                     <Flex vertical gap="small" style={{ width: '100%' }}>
-                                        <Button className="custom-button" htmlType="submit">Sign in <FaArrowRight /></Button>
+                                        <Button className="custom-button" htmlType="submit" disabled={loadingSubmit}>Sign in <FaArrowRight /></Button>
                                     </Flex>
 
                                     <Divider>Or</Divider>

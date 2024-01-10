@@ -27,7 +27,6 @@ const InventoryEntry = () => {
             if (res.data.status) {
                 SetDDLList(res.data.data);
             }
-            console.log(res);
         } catch (error) {
             setLoadingDDLList(false);
         }
@@ -43,12 +42,15 @@ const InventoryEntry = () => {
     const submitInventory = async (formData: any) => {
         try {
             setLoadingFormSubmit(true);
+            let DDLValue = ddlList.find(itm => itm.value == formData.inventoryCat)
+
             const payload = {
                 name: formData.name,
-                categoryId: formData.inventoryCat,
-                categoryName: formData.inventoryCatName,
+                categoryId: DDLValue?.id,
+                categoryName: DDLValue?.value,
                 description: formData.description,
             }
+            console.log(payload);
 
             const res = await inventoryService.createInventory(payload);
             if (res.data.status) {
@@ -116,7 +118,7 @@ const InventoryEntry = () => {
                         >
                             <TextArea rows={4} placeholder="Enter Description" />
                         </Form.Item>
-                        <Button htmlType="submit">Submit</Button>
+                        <Button htmlType="submit" disabled={loadingFormSubmit}>Submit</Button>
                     </Form>
                 </Col>
             </div>
