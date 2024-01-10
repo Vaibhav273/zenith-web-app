@@ -75,3 +75,46 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+.ant-table-container {
+  .ant-table-thead {
+
+    th {
+      border-radius: 0 !important;
+      background-color: $primary !important;
+      color: $black !important;
+
+      .ant-table-column-sorter {
+        color: $white !important;
+      }
+    }
+  }
+
+  .ant-table-tbody {
+    h4 {
+      font-size: 1.1rem;
+    }
+
+    p {
+      font-size: 0.8rem;
+      margin-bottom: 2px;
+      text-transform: capitalize;
+
+      span {
+        color: $primary;
+        font-weight: bold;
+      }
+    }
+
+    .btn {
+      svg {
+        font-size: 1.2rem;
+      }
+
+      &:hover {
+        color: $white;
+        border: transparent;
+      }
+    }
+  }
+}

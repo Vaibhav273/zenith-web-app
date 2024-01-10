@@ -57,7 +57,7 @@ const LoginScreen = () => {
                                 <Form
                                     layout="vertical"
                                     form={form}
-                                    name="boilerRegForm"
+                                    name="loginForm"
                                     onFinish={loginSubmit}
                                     scrollToFirstError
                                 >

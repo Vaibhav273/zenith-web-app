@@ -8,6 +8,10 @@ import ErrorScreen from "../_global/_error";
 import UserLayout from "../_user/_layout";
 import VisitorScreen from "../auth/pages/_visitorScreen";
 import DashBoardScreen from "../_user/_dashboard";
+import InventoryCategoryList from "../_user/inventory/_inventory-category-list";
+import InventoryCategoryEntry from "../_user/inventory/_inventory-category-entry";
+import InventoryList from "../_user/inventory/_inventory-list";
+import InventoryEntry from "../_user/inventory/_inventory-entry";
 
 
 // const Home = React.lazy(() => import('../pages/_home'));
@@ -70,7 +74,10 @@ const router = createBrowserRouter([
                 path: 'user', element: <DashboardLayout />,
                 children: [
                     { path: 'dashboard', element: <DashBoardScreen />, index: true },
-                    // { path: 'boiler-list/new-application', element: <BoilerList applicationType="new-application" /> },
+                    { path: 'inventory-category', element: <InventoryCategoryList /> },
+                    { path: 'new-inventory-category', element: <InventoryCategoryEntry /> },
+                    { path: 'inventory', element: <InventoryList /> },
+                    { path: 'new-inventory', element: <InventoryEntry /> },
                 ]
             }
         ]

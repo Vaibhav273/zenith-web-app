@@ -128,7 +128,7 @@ const DashboardLayout = () => {
                             {/* <Breadcrumb.Item>Department</Breadcrumb.Item>
                             <Breadcrumb.Item>Dashboard</Breadcrumb.Item> */}
                         </Breadcrumb>
-                        <div style={{ padding: 8 }}>
+                        <div style={{ paddingLeft: "1rem", paddingRight: "1rem" }}>
                             <Suspense fallback={<Loader />}>
                                 <Outlet />
                             </Suspense>

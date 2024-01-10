@@ -12,7 +12,7 @@ export class InventoryService {
         return await axiosInstance.get('/inventory/get-ddl-inventory-categories');
     }
 
-    getDDLInventoryCategoryList = async () => {
+    getInventoryCategoryList = async () => {
         return await axiosInstance.get('/inventory/get-inventory-categories-list');
     }
 
@@ -20,6 +20,10 @@ export class InventoryService {
 
     createInventory = async (payload: any) => {
         return await axiosInstance.post('/inventory/create-inventory', payload);
+    }
+
+    getInventoryList = async () => {
+        return await axiosInstance.get('/inventory/get-inventory-list');
     }
 }
 export default InventoryService;

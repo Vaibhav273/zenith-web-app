@@ -16,24 +16,24 @@ export const getNavItems = (): any => {
     navItems = [
         {
             key: '0',
-            label: <NavLink to={'/admin/dashboard'} className={'text-decoration-none'}>Dashboard</NavLink>,
-            icon: <LuLayoutDashboard />,
+            label: <NavLink to={'/user/dashboard'} className={'text-decoration-none'}>Dashboard</NavLink>,
+            // icon: <LuLayoutDashboard />,
             onClick: () => {
                 setKey('0');
             }
         },
         {
             key: '1',
-            label: <NavLink to={'/admin/dashboard'} className={'text-decoration-none'}>Inventory Category</NavLink>,
-            icon: <LuLayoutDashboard />,
+            label: <NavLink to={'/user/inventory-category'} className={'text-decoration-none'}>Inventory Category</NavLink>,
+            // icon: <LuLayoutDashboard />,
             onClick: () => {
                 setKey('1');
             }
         },
         {
             key: '2',
-            label: <NavLink to={'/admin/dashboard'} className={'text-decoration-none'}>Inventory</NavLink>,
-            icon: <LuLayoutDashboard />,
+            label: <NavLink to={'/user/inventory'} className={'text-decoration-none'}>Inventory</NavLink>,
+            // icon: <LuLayoutDashboard />,
             onClick: () => {
                 setKey('2');
             }
