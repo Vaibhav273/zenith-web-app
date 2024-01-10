@@ -76,8 +76,11 @@ const router = createBrowserRouter([
                     { path: 'dashboard', element: <DashBoardScreen />, index: true },
                     { path: 'inventory-category', element: <InventoryCategoryList /> },
                     { path: 'new-inventory-category', element: <InventoryCategoryEntry /> },
+                    { path: 'update-inventory-category/:categoryId', element: <InventoryCategoryEntry /> },
+
                     { path: 'inventory', element: <InventoryList /> },
                     { path: 'new-inventory', element: <InventoryEntry /> },
+                    { path: 'update-inventory/:inventoryId', element: <InventoryEntry /> },
                 ]
             }
         ]

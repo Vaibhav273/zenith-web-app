@@ -118,3 +118,11 @@ input::-webkit-inner-spin-button {
     }
   }
 }
+
+.ant-layout-footer {
+  padding: 15px;
+  font-family: $outfit;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  // box-shadow: 5px 5px 10px 0px #ddd;
+}
