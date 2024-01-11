@@ -25,6 +25,10 @@ export class InventoryService {
         return await axiosInstance.post('/inventory/create-inventory', payload);
     }
 
+    updateInventory = async (payload: any) => {
+        return await axiosInstance.post('/inventory/update-inventory', payload);
+    }
+
     getInventoryList = async () => {
         return await axiosInstance.get('/inventory/get-inventory-list');
     }

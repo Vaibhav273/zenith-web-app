@@ -15,6 +15,13 @@ interface InventoryList {
     isSelected: boolean;
 }
 
+
+interface editData {
+    description: string;
+    id: number;
+    name: string;
+}
+
 const InventoryCategoryList = () => {
     const navigate = useNavigate();
 
@@ -26,7 +33,7 @@ const InventoryCategoryList = () => {
 
     const [form] = Form.useForm();
     const [loadingFormSubmit, setLoadingFormSubmit] = useState(false);
-    const [editData, setEditData] = useState()
+    const [editData, setEditData] = useState<editData>()
 
     const columns: ColumnType<InventoryList>[] = [
         {
@@ -97,6 +104,7 @@ const InventoryCategoryList = () => {
     useEffect(() => {
         getInventoryCategoryList();
     }, []);
+
     const showModal = (record: any) => {
         setIsModalOpen(true);
 
@@ -105,8 +113,8 @@ const InventoryCategoryList = () => {
 
 
         form.setFieldsValue({
-            // name: editData.name,
-            // description: editData.description
+            name: editData?.name,
+            description: editData?.description
         })
     };
 
@@ -114,14 +122,16 @@ const InventoryCategoryList = () => {
     const handleCancel = () => {
         setIsModalOpen(false);
     };
-    const updateInventoryCategory = async (formData: any) => {
+    const updateInventoryCategory = async () => {
         try {
+
             setLoadingFormSubmit(true);
             const payload = {
-                // id: record.id,
-                name: formData.name,
-                description: formData.description,
+                id: editData?.id,
+                name: form.getFieldValue("name"),
+                description: form.getFieldValue("description"),
             }
+            console.log(payload);
 
             const res = await inventoryService.updateInventoryCategory(payload);
             if (res.data.status) {
@@ -131,6 +141,7 @@ const InventoryCategoryList = () => {
                     showConfirmButton: false,
                     timer: 2000
                 });
+                getInventoryCategoryList();
                 setIsModalOpen(false);
             }
         } catch (error) {
