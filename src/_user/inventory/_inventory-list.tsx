@@ -57,7 +57,7 @@ const InventoryList = () => {
                 return (
                     <>
                         <Tooltip title="Edit">
-                            <Button type="primary" icon={<FiEdit />} onClick={() => navigate("/user/update-inventory" + record.id)} />
+                            <Button type="primary" icon={<FiEdit />} onClick={() => navigate("/user/update-inventory/" + record)} />
                         </Tooltip>
                     </>
                 )
@@ -106,6 +106,7 @@ const InventoryList = () => {
                     dataSource={inventoryList}
                     loading={loadingInventoryList}
                     size="small"
+                    scroll={{ x: 500 }}
                 />
             </div>
         </>

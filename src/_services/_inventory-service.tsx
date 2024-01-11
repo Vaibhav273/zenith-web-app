@@ -7,6 +7,9 @@ export class InventoryService {
     createInventoryCategory = async (payload: any) => {
         return await axiosInstance.post('/inventory/create-inventory-category', payload);
     }
+    updateInventoryCategory = async (payload: any) => {
+        return await axiosInstance.post('/inventory/update-inventory-category', payload);
+    }
 
     getDDLInventoryCategory = async () => {
         return await axiosInstance.get('/inventory/get-ddl-inventory-categories');

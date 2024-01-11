@@ -104,7 +104,7 @@ const DashboardLayout = () => {
 
     return (
         <Layout style={{ minHeight: '100vh' }}>
-            <Navbar expand="lg" className="bg-body-tertiary">
+            <Navbar expand="lg" className="bg-body-tertiary mobile-menu">
                 <Container>
                     <Navbar.Brand href="#">
                         <Image
