@@ -49,7 +49,7 @@ const InventoryCategoryList = () => {
             render: (_value, record, _index) => {
                 return (
                     <>
-                        {record.active == 1 ? <Tag color="success">Yes</Tag> : <Tag color="error">No</Tag>}
+                        {record.active == 1 ? <Tag color="success">Active</Tag> : <Tag color="error">In Active</Tag>}
                     </>
                 )
             },
