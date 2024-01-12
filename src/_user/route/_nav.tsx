@@ -1,14 +1,14 @@
 import type { MenuProps } from 'antd';
 import { LuLayoutDashboard } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
-import AuthenticationService from '../../_services/_auth-service';
+// import AuthenticationService from '../../_services/_auth-service';
 import { MdOutlineInventory2 } from "react-icons/md";
 
 
 export const getNavItems = (): any => {
     // const navigate = useNavigate();
     let navItems: MenuProps['items'] = [];
-    const authService = new AuthenticationService();
+    // const authService = new AuthenticationService();
 
     const setKey = (key: string) => {
         sessionStorage.setItem('selectedKey', key);

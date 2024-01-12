@@ -1,9 +1,7 @@
 import { Suspense, useState } from 'react';
-import { Breadcrumb, Layout, Menu, theme, Image, Button, Tooltip } from 'antd';
-import type { MenuProps } from 'antd';
-import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import { Breadcrumb, Layout, Menu, Image, Button, Tooltip } from 'antd';
+import { Link, Outlet, useLocation } from "react-router-dom";
 import zenithLogo from "../assets/images/logo-dashboard.png";
-import { LuUnlock } from 'react-icons/lu';
 import AuthenticationService from '../_services/_auth-service';
 import { getNavItems } from './route/_nav';
 import Loader from '../_global/_loader';
@@ -53,43 +51,42 @@ const getSelectedMenuKeys = (): string[] | undefined => {
 }
 
 const DashboardLayout = () => {
-    const [collapsed, setCollapsed] = useState(false);
-    const { token } = theme.useToken();
+    // const { token } = theme.useToken();
     const mobileMenuItems = getNavItems();
 
-    const getChangePasswordUrl = () => {
-        switch (authService.userData?.roleId) {
-            case 1:
-                return "/admin/change-password";
-                break;
-            case 5:
-                return "/chief/change-password";
-                break;
-            case 6:
-                return "/department/change-password";
-                break;
-            default:
-                break;
-        }
-        return "";
-    }
+    // const getChangePasswordUrl = () => {
+    //     switch (authService.userData?.roleId) {
+    //         case 1:
+    //             return "/admin/change-password";
+    //             break;
+    //         case 5:
+    //             return "/chief/change-password";
+    //             break;
+    //         case 6:
+    //             return "/department/change-password";
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    //     return "";
+    // }
 
-    const userMenuItems: MenuProps['items'] = [
-        getChangePasswordUrl() ? {
-            key: '2',
-            label: <NavLink to={getChangePasswordUrl()} className={'text-decoration-none'}>Change Password</NavLink>,
-            icon: <LuUnlock />,
-        } : null,
-    ];
+    // const userMenuItems: MenuProps['items'] = [
+    //     getChangePasswordUrl() ? {
+    //         key: '2',
+    //         label: <NavLink to={getChangePasswordUrl()} className={'text-decoration-none'}>Change Password</NavLink>,
+    //         icon: <LuUnlock />,
+    //     } : null,
+    // ];
 
-    const contentStyle = {
-        backgroundColor: token.colorBgElevated,
-        borderRadius: token.borderRadiusLG,
-        boxShadow: token.boxShadowSecondary,
-    };
-    const menuStyle = {
-        boxShadow: 'none',
-    };
+    // const contentStyle = {
+    //     backgroundColor: token.colorBgElevated,
+    //     borderRadius: token.borderRadiusLG,
+    //     boxShadow: token.boxShadowSecondary,
+    // };
+    // const menuStyle = {
+    //     boxShadow: 'none',
+    // };
 
     const [collapsedState, setCollapsedState] = useState({
         collapsed: false,

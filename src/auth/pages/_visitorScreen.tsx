@@ -20,9 +20,9 @@ const VisitorScreen = () => {
 
     }
 
-    const otpSubmit = async () => {
+    // const otpSubmit = async () => {
 
-    }
+    // }
 
     const selectBefore = (
         <Select defaultValue="+91" style={{ width: 60 }}>

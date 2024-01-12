@@ -37,7 +37,7 @@ const InventoryList = () => {
     const columns: ColumnType<InventoryList>[] = [
         {
             title: '#',
-            render: (text, record, index) => index + 1,
+            render: (_text, _record, index) => index + 1,
             width: '3%',
             key: '1'
         },
@@ -59,7 +59,7 @@ const InventoryList = () => {
         {
             title: 'Status',
             dataIndex: 'active',
-            render: (value, record, index) => {
+            render: (_value, record, _index) => {
                 return (
                     <>
                         {record.activeStatus == 1 ? <Tag color="success">Yes</Tag> : <Tag color="error">No</Tag>}

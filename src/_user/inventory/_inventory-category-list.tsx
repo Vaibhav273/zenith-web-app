@@ -31,7 +31,7 @@ const InventoryCategoryList = () => {
     const columns: ColumnType<InventoryList>[] = [
         {
             title: '#',
-            render: (text, record, index) => index + 1,
+            render: (_text, _record, index) => index + 1,
             width: '3%',
             align: "center",
         },
@@ -46,7 +46,7 @@ const InventoryCategoryList = () => {
         {
             title: 'Status',
             dataIndex: 'active',
-            render: (value, record, index) => {
+            render: (_value, record, _index) => {
                 return (
                     <>
                         {record.active == 1 ? <Tag color="success">Yes</Tag> : <Tag color="error">No</Tag>}
@@ -57,7 +57,7 @@ const InventoryCategoryList = () => {
         },
         {
             title: 'Action',
-            render: (value, record, index) => {
+            render: (_value, record, _index) => {
                 return (
                     <>
                         <Tooltip title="Edit">
