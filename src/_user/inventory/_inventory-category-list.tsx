@@ -15,25 +15,18 @@ interface InventoryList {
     isSelected: boolean;
 }
 
-
-interface editData {
-    description: string;
-    id: number;
-    name: string;
-}
-
 const InventoryCategoryList = () => {
     const navigate = useNavigate();
 
     const inventoryService = new InventoryService();
-    const [inventoryList, setInventoryList] = useState<InventoryList[]>();
+    const [inventoryList, setInventoryList] = useState<InventoryList[]>([]);
     const [loadingInventoryList, setLoadingInventoryList] = useState(false);
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [form] = Form.useForm();
     const [loadingFormSubmit, setLoadingFormSubmit] = useState(false);
-    const [editData, setEditData] = useState<editData>()
+    const [selectedItem, setSelectedItem] = useState<InventoryList>();
 
     const columns: ColumnType<InventoryList>[] = [
         {
@@ -105,29 +98,26 @@ const InventoryCategoryList = () => {
         getInventoryCategoryList();
     }, []);
 
-    const showModal = (record: any) => {
+    const showModal = (record: InventoryList) => {
         setIsModalOpen(true);
-
-        setEditData(record);
-        console.log(editData);
-
-
+        setSelectedItem(record);
         form.setFieldsValue({
-            name: editData?.name,
-            description: editData?.description
+            name: record.name,
+            description: record.description
         })
     };
 
 
     const handleCancel = () => {
         setIsModalOpen(false);
+        setSelectedItem(undefined);
     };
     const updateInventoryCategory = async () => {
         try {
 
             setLoadingFormSubmit(true);
             const payload = {
-                id: editData?.id,
+                id: selectedItem?.id,
                 name: form.getFieldValue("name"),
                 description: form.getFieldValue("description"),
             }
@@ -167,6 +157,7 @@ const InventoryCategoryList = () => {
                     loading={loadingInventoryList}
                     size="small"
                     scroll={{ x: 500 }}
+                    rowClassName={(record) => { return record.id == selectedItem?.id ? 'table-selected' : '' }}
                 />
             </div>
             <Modal title="Update Inventory Category"

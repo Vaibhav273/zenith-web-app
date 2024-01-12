@@ -7,6 +7,7 @@ import Table, { ColumnType } from "antd/es/table";
 import { FiEdit } from "react-icons/fi";
 import Swal from "sweetalert2";
 import TextArea from "antd/es/input/TextArea";
+import { CommonDDLList } from "../../_model/_common-model";
 interface InventoryList {
     inventoryId: number;
     inventoryName: string;
@@ -14,19 +15,6 @@ interface InventoryList {
     categoryName: string;
     description: string;
     activeStatus: number;
-}
-
-interface editData {
-    inventoryId: number,
-    inventoryName: string,
-    categoryId: number,
-    categoryName: string,
-    description: string,
-}
-
-interface DDLList {
-    id: number,
-    value: string
 }
 
 const InventoryList = () => {
@@ -40,10 +28,11 @@ const InventoryList = () => {
 
     const [form] = Form.useForm();
     const [loadingFormSubmit, setLoadingFormSubmit] = useState(false);
-    const [editData, setEditData] = useState<editData>();
 
-    const [ddlList, SetDDLList] = useState<DDLList[]>([]);
+    const [inventoryCatDDLList, setInventoryCatDDLList] = useState<CommonDDLList[]>([]);
     const [loadingDDLList, setLoadingDDLList] = useState(false);
+
+    const [selectedItem, setSelectedItem] = useState<InventoryList>();
 
     const columns: ColumnType<InventoryList>[] = [
         {
@@ -130,7 +119,18 @@ const InventoryList = () => {
             setLoadingDDLList(true);
             let res = await inventoryService.getDDLInventoryCategory();
             if (res.data.status) {
-                SetDDLList(res.data.data);
+                setInventoryCatDDLList(() => {
+                    let _data: CommonDDLList[] = [];
+
+                    for (let i = 0; i < res.data.data.length; i++) {
+                        _data.push({
+                            label: res.data.data[i].value,
+                            value: res.data.data[i].id
+                        })
+                    }
+
+                    return _data;
+                });
             }
         } catch (error) {
             setLoadingDDLList(false);
@@ -145,36 +145,38 @@ const InventoryList = () => {
 
         getInventoryDDLList();
 
-        setEditData(record);
-        console.log(editData);
+        setSelectedItem(record);
 
 
         form.setFieldsValue({
-            name: editData?.inventoryName,
-            inventoryCat: editData?.categoryId.toString(),
-            description: editData?.description,
+            name: record.inventoryName,
+            inventoryCat: record.categoryId,
+            description: record.description,
         })
     };
 
     const handleCancel = () => {
         setIsModalOpen(false);
+        setSelectedItem(undefined);
     };
 
     const updateInventory = async () => {
         try {
 
             setLoadingFormSubmit(true);
-            let DDLValue = ddlList.find(itm => itm.value == form.getFieldValue("categoryId"))
+            let DDLValue = inventoryCatDDLList.find(itm => itm.value == form.getFieldValue("inventoryCat"));
+            console.log(form.getFieldValue("inventoryCat"));
+
             const payload = {
-                inventoryId: editData?.inventoryId,
+                inventoryId: selectedItem?.inventoryId,
                 name: form.getFieldValue("name"),
-                categoryId: form.getFieldValue("categoryId"),
-                categoryName: DDLValue,
+                categoryId: form.getFieldValue("inventoryCat"),
+                categoryName: DDLValue?.label,
                 description: form.getFieldValue("description"),
             }
             console.log(payload);
 
-            const res = await inventoryService.updateInventoryCategory(payload);
+            const res = await inventoryService.updateInventory(payload);
             if (res.data.status) {
                 Swal.fire({
                     html: 'Inventory Updated Successfully !',
@@ -183,7 +185,7 @@ const InventoryList = () => {
                     timer: 2000
                 });
                 getInventoryList();
-                setIsModalOpen(false);
+                handleCancel();
             }
         } catch (error) {
             setLoadingFormSubmit(false);
@@ -209,6 +211,7 @@ const InventoryList = () => {
                     loading={loadingInventoryList}
                     size="small"
                     scroll={{ x: 500 }}
+                    rowClassName={(record) => { return record.inventoryId == selectedItem?.inventoryId ? 'table-selected' : '' }}
                 />
 
                 <Modal title="Update Inventory"
@@ -228,7 +231,7 @@ const InventoryList = () => {
                     <Form
                         layout="vertical"
                         form={form}
-                        name="inventoryCatForm"
+                        name="inventoryForm"
                         onFinish={updateInventory}
                         scrollToFirstError
                     >
@@ -249,9 +252,9 @@ const InventoryList = () => {
                         ]}>
                             <Select showSearch placeholder="Select Inventory Category" optionFilterProp="children"
                                 // onChange={onChange} // onSearch={onSearch}
-                                options={ddlList} loading={loadingDDLList}
+                                options={inventoryCatDDLList} loading={loadingDDLList}
                                 filterOption={(input, option) =>
-                                    (option?.value ?? '').toLowerCase().includes(input.toLowerCase())
+                                    (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
                                 }
                             />
                         </Form.Item>

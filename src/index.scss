@@ -131,4 +131,8 @@ input::-webkit-inner-spin-button {
   // box-shadow: 5px 5px 10px 0px #ddd;
 }
 
+.table-selected {
+  background-color: #f0f0f0;
+}
+
 @import "./assets/scss/responsive";
