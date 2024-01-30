@@ -38,6 +38,19 @@ export class AuthenticationService {
     refreshAuthToken = async (payload: any) => {
         return await axiosInstance.post('/auth/refresh_token', payload);
     }
+
+    // Send OTP
+
+    sendOTPLogin = async (payload: any) => {
+        return await axiosInstance.post('/auth/send-otp-client-login', payload);
+    }
+
+    // verifying OTP
+
+    verifyingOTP = async () => {
+        return await axiosInstance.get('/auth/verify-otp-client-login');
+    }
+
     logout = () => {
         sessionStorage.clear();
         window.location.href = '/login';
