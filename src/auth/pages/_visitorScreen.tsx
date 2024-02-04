@@ -1,6 +1,6 @@
 import { Button, Form, Input, InputNumber, Select } from "antd";
 import { Col, Row } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import loginImage from "../../assets/images/login-bg.png";
 import androidImage from "../../assets/images/google-play.png";
 import iosImage from "../../assets/images/app-store.png";
@@ -11,21 +11,28 @@ import { useEffect, useState } from "react";
 import CommonService from "../../_services/_common-services";
 import AuthenticationService from "../../_services/_auth-service";
 import Swal from "sweetalert2";
-// import { useState } from "react";
+import OtpInput from 'react-otp-input';
 
 const { Option } = Select;
 
-export interface CommonCountryList {
+interface CommonCountryList {
     id: string;
     value: string;
 }
 
+interface DDLList {
+    id: number,
+    value: string
+}
+
+
 const VisitorScreen = () => {
     const [form] = Form.useForm();
     const [otpForm] = Form.useForm();
+    const [visitorForm] = Form.useForm();
 
-    // const navigate = useNavigate();
-    const [otpSent, setOTPSent] = useState(false);
+    const navigate = useNavigate();
+
 
     const [loadingCountryCode, setLoadingCountryCode] = useState(false);
     const [countryCodeList, setCountryCodeList] = useState<CommonCountryList[]>([]);
@@ -35,8 +42,18 @@ const VisitorScreen = () => {
     const [showOTPForm, setShowOTPForm] = useState(false);
     const [showMUserDetailForm, setShowMUserDetailForm] = useState(false);
 
+    const [GenderddlList, SetGenderddlList] = useState<DDLList[]>([]);
+    const [loadingGenderDDLList, SetLoadingGenderDDLList] = useState(false);
+
+    const [refDdlList, SetRefDdlList] = useState<DDLList[]>([]);
+    const [loadingRefDDLList, setLoadingRefDDLList] = useState(false);
+
+
+
     const commonService = new CommonService();
     const authService = new AuthenticationService();
+
+    const [otp, setOtp] = useState('');
 
     const getCountryCode = async () => {
         try {
@@ -49,6 +66,37 @@ const VisitorScreen = () => {
         }
         finally {
             setLoadingCountryCode(false);
+        }
+    }
+
+
+    const getGenderList = async () => {
+        try {
+            SetLoadingGenderDDLList(true);
+            let genderRes = await commonService.getGenderList();
+
+            SetGenderddlList(genderRes.data.data);
+
+        } catch (error) {
+            SetLoadingGenderDDLList(false);
+        }
+        finally {
+            SetLoadingGenderDDLList(false);
+        }
+    }
+
+    const getReferredList = async () => {
+        try {
+            setLoadingRefDDLList(true);
+            let refRes = await commonService.getReferredList();
+
+            SetRefDdlList(refRes.data.data);
+
+        } catch (error) {
+            setLoadingRefDDLList(false);
+        }
+        finally {
+            setLoadingRefDDLList(false);
         }
     }
 
@@ -72,10 +120,10 @@ const VisitorScreen = () => {
         />
     );
 
-
+    const [OTPSentLoading, setOTPSentLoading] = useState(false);
     const otpSubmit = async () => {
         try {
-            setLoadingCountryCode(true);
+            setOTPSentLoading(true);
             let payload: {
                 countryCode: string
                 mobileNo: number
@@ -98,45 +146,98 @@ const VisitorScreen = () => {
                 localStorage.setItem('messageID', otpRes.data.msgId);
                 setShowMobileForm(false);
                 setShowOTPForm(true);
+                setShowMUserDetailForm(false);
                 // setCountryCodeList(res.data);
             }
 
 
         } catch (error) {
-            setLoadingCountryCode(false);
+            setOTPSentLoading(false);
         }
         finally {
-            setLoadingCountryCode(false);
+            setOTPSentLoading(false);
         }
     }
 
+    const [loadingOtpVerify, setLoadingOtpVerify] = useState(false);
     const OTPverify = async () => {
         try {
-            setLoadingCountryCode(true);
+            setLoadingOtpVerify(true);
             let payload: {
                 msgId: any,
-                msgOtp: number,
+                msgOtp: string,
                 userType: number
             } = {
                 msgId: localStorage.getItem("messageID"),
-                msgOtp: otpForm.getFieldValue('otpInput'),
+                msgOtp: otp,
                 userType: 2   // Visitor
             }
-            let res = await authService.sendOTPLogin(payload);
+            let res = await authService.verifyingOTP(payload);
             console.log(res);
 
+            if (res.data.status) {
+                Swal.fire({
+                    html: res.data.message,
+                    icon: 'success',
+                    showConfirmButton: false,
+                    // timer: 2000
+                });
+                localStorage.clear();
+                setShowMobileForm(false);
+                setShowOTPForm(false);
+                setShowMUserDetailForm(true);
+
+                getGenderList();
+                getReferredList();
+            }
             setCountryCodeList(res.data);
 
         } catch (error) {
-            setLoadingCountryCode(false);
+            setLoadingOtpVerify(false);
         }
         finally {
-            setLoadingCountryCode(false);
+            setLoadingOtpVerify(false);
         }
     }
 
+    const [loadingVisitorSumbit, setLoadingVisitorSumbit] = useState(false);
     const visitorSubmit = async () => {
+        try {
+            setLoadingVisitorSumbit(true);
+            let payload: {
+                name: string;
+                gender: number,
+                email: string,
+                organization: string,
+                referredBy: number
+            } = {
+                name: visitorForm.getFieldValue('fullName'),
+                gender: visitorForm.getFieldValue('gender'),
+                email: visitorForm.getFieldValue('emailId'),
+                organization: visitorForm.getFieldValue('companyName'),
+                referredBy: visitorForm.getFieldValue('referBy')
+            }
+            let res = await authService.verifyingOTP(payload);
+            console.log(res);
 
+            if (res.data.status) {
+                Swal.fire({
+                    html: res.data.message,
+                    icon: 'success',
+                    showConfirmButton: false,
+                    // timer: 2000
+                });
+                localStorage.clear();
+                navigate('');
+            }
+            setCountryCodeList(res.data);
+
+        } catch (error) {
+            setLoadingVisitorSumbit(false);
+        }
+        finally {
+            setLoadingVisitorSumbit(false);
+        }
     }
 
     return (
@@ -188,7 +289,7 @@ const VisitorScreen = () => {
                                                 ]}
                                             >
                                                 {/* <InputNumber addonAfter={selectAfter} defaultValue={100} /> */}
-                                                <InputNumber addonBefore={selectBefore} placeholder="7879....." style={{ width: "100%" }} />
+                                                <InputNumber addonBefore={selectBefore} placeholder="7879....." maxLength={10} style={{ width: "100%" }} />
                                             </Form.Item>
                                         </Col>
                                         <Col className="text-center mb-3">
@@ -201,14 +302,22 @@ const VisitorScreen = () => {
                                         layout="vertical"
                                         form={form}
                                         name="otpForm"
-                                        onFinish={otpSubmit}
+                                        onFinish={OTPverify}
                                         scrollToFirstError
                                         className="otp-form-section"
                                     >
                                         <Col className="text-center">
                                             <p>We’ve sent an SMS, please enter the  OTP</p>
                                         </Col>
-
+                                        <Col xl={12} className="text-center otpform">
+                                            <OtpInput
+                                                value={otp}
+                                                onChange={setOtp}
+                                                numInputs={6}
+                                                renderSeparator={<span>-</span>}
+                                                renderInput={(props) => <input {...props} />}
+                                            />
+                                        </Col>
                                         <Col className="text-center">
                                             <Button className="custom-button" htmlType="submit">Submit</Button>
                                         </Col>
@@ -217,7 +326,7 @@ const VisitorScreen = () => {
                                 {showMUserDetailForm &&
                                     <Form
                                         layout="vertical"
-                                        form={form}
+                                        form={visitorForm}
                                         name="visitorForm"
                                         onFinish={visitorSubmit}
                                         scrollToFirstError
@@ -237,19 +346,17 @@ const VisitorScreen = () => {
                                                     <Input placeholder="John Deo" />
                                                 </Form.Item>
                                             </Col>
-
-                                            <Col xl={6}>
-                                                <Form.Item
-                                                    name="companyName"
-                                                    label="Company Name"
-                                                    rules={[
-                                                        {
-                                                            required: true,
-                                                            message: 'Please enter your Company Name',
-                                                        },
-                                                    ]}
-                                                >
-                                                    <Input placeholder="ex.: Accenture, TCS etc." />
+                                            <Col xl={6} className="visitor-detail">
+                                                <Form.Item name="gender" label="Gender" rules={[
+                                                    { required: true, message: 'Gender Required' },
+                                                ]}>
+                                                    <Select showSearch placeholder="Select Gender" optionFilterProp="children"
+                                                        // onChange={onChange} // onSearch={onSearch}
+                                                        options={GenderddlList} loading={loadingGenderDDLList}
+                                                        filterOption={(input, option) =>
+                                                            (option?.value ?? '').toLowerCase().includes(input.toLowerCase())
+                                                        }
+                                                    />
                                                 </Form.Item>
                                             </Col>
                                             <Col xl={6}>
@@ -266,13 +373,39 @@ const VisitorScreen = () => {
                                                     <Input placeholder="Enter e-mail Id" />
                                                 </Form.Item>
                                             </Col>
+                                            <Col xl={6}>
+                                                <Form.Item
+                                                    name="companyName"
+                                                    label="Company Name"
+                                                    rules={[
+                                                        {
+                                                            required: true,
+                                                            message: 'Please enter your Company Name',
+                                                        },
+                                                    ]}
+                                                >
+                                                    <Input placeholder="ex.: Accenture, TCS etc." />
+                                                </Form.Item>
+                                            </Col>
+                                            <Col xl={6} className="visitor-detail">
+                                                <Form.Item name="referBy" label="Referred By" rules={[
+                                                    { required: true, message: 'Referre Required' },
+                                                ]}>
+                                                    <Select showSearch placeholder="Select Referred" optionFilterProp="children"
+                                                        // onChange={onChange} // onSearch={onSearch}
+                                                        options={refDdlList} loading={loadingRefDDLList}
+                                                        filterOption={(input, option) =>
+                                                            (option?.value ?? '').toLowerCase().includes(input.toLowerCase())
+                                                        }
+                                                    />
+                                                </Form.Item>
+                                            </Col>
                                         </Row>
                                         <Col className="text-center">
                                             <Button className="custom-button" htmlType="submit">Next <FaArrowRight /></Button>
                                         </Col>
                                     </Form>
                                 }
-
                             </Col>
                             <Col xl={6} className="text-center box-image">
                                 <img src={loginImage} alt="Login Icon" className="img-fluid" />

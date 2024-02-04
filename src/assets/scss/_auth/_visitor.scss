@@ -151,4 +151,32 @@
     font-size: 1.1rem;
     margin-bottom: 0;
   }
+
+  .otpform {
+    margin-top: 1rem;
+    div {
+      justify-content: center;
+      input {
+        font-weight: 400;
+        font-family: $outfit;
+        font-size: 1.6rem !important;
+        color: #8897ad;
+        border-radius: 5px;
+        border-color: $black;
+        height: 60px;
+        width: 60px !important;
+        margin: 0 1rem;
+      }
+    }
+  }
+}
+.visitor-detail {
+  .ant-select {
+    height: 42px;
+    font-family: $outfit;
+    font-size: 18px !important;
+    color: #8897ad;
+    border-radius: 5px;
+    border: 1px solid $black !important;
+  }
 }

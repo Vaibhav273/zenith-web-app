@@ -47,8 +47,8 @@ export class AuthenticationService {
 
     // verifying OTP
 
-    verifyingOTP = async () => {
-        return await axiosInstance.get('/auth/verify-otp-client-login');
+    verifyingOTP = async (payload: any) => {
+        return await axiosInstance.post('/auth/verify-otp-client-login', payload);
     }
 
     logout = () => {
