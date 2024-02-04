@@ -12,8 +12,7 @@ import CommonService from "../../_services/_common-services";
 import AuthenticationService from "../../_services/_auth-service";
 import Swal from "sweetalert2";
 import OtpInput from 'react-otp-input';
-
-const { Option } = Select;
+import VisitorServices from "../../_services/_visitor-services";
 
 interface CommonCountryList {
     id: string;
@@ -36,7 +35,7 @@ const VisitorScreen = () => {
 
     const [loadingCountryCode, setLoadingCountryCode] = useState(false);
     const [countryCodeList, setCountryCodeList] = useState<CommonCountryList[]>([]);
-    const [countryCode, setCountryCode] = useState(String);
+    // const [countryCode, setCountryCode] = useState(String);
 
     const [showMobileForm, setShowMobileForm] = useState(true);
     const [showOTPForm, setShowOTPForm] = useState(false);
@@ -52,6 +51,7 @@ const VisitorScreen = () => {
 
     const commonService = new CommonService();
     const authService = new AuthenticationService();
+    const visitorService = new VisitorServices();
 
     const [otp, setOtp] = useState('');
 
@@ -217,7 +217,7 @@ const VisitorScreen = () => {
                 organization: visitorForm.getFieldValue('companyName'),
                 referredBy: visitorForm.getFieldValue('referBy')
             }
-            let res = await authService.verifyingOTP(payload);
+            let res = await visitorService.updateVisitorProfile(payload);
             console.log(res);
 
             if (res.data.status) {
@@ -293,7 +293,7 @@ const VisitorScreen = () => {
                                             </Form.Item>
                                         </Col>
                                         <Col className="text-center mb-3">
-                                            <Button className="custom-button" htmlType="submit">Send OTP <FaArrowRight /></Button>
+                                            <Button className="custom-button" htmlType="submit" loading={OTPSentLoading}>Send OTP <FaArrowRight /></Button>
                                         </Col>
                                     </Form>
                                 }
@@ -319,7 +319,7 @@ const VisitorScreen = () => {
                                             />
                                         </Col>
                                         <Col className="text-center">
-                                            <Button className="custom-button" htmlType="submit">Submit</Button>
+                                            <Button className="custom-button" htmlType="submit" loading={loadingOtpVerify}>Submit</Button>
                                         </Col>
                                     </Form>
                                 }
@@ -402,7 +402,7 @@ const VisitorScreen = () => {
                                             </Col>
                                         </Row>
                                         <Col className="text-center">
-                                            <Button className="custom-button" htmlType="submit">Next <FaArrowRight /></Button>
+                                            <Button className="custom-button" htmlType="submit" loading={loadingVisitorSumbit}>Next <FaArrowRight /></Button>
                                         </Col>
                                     </Form>
                                 }
